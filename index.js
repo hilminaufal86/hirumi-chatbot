@@ -83,6 +83,7 @@ async function tracker(kurir,resi) {
 
     } catch(e) {
         console.log("Error occured",e)
+        return "error while trying to connect the api with api key : " + process.env.CEKRESI_API_KEY
     }
 }
 // bot.launch()
