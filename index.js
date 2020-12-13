@@ -49,10 +49,10 @@ bot.command('track', (ctx) => {
         console.log(result);
         ctx.reply(result);
         res = result;
-        console.log("in tracker",res)
+        // console.log("in tracker",res)
     })
-    console.log("after tracker",res)
-    // ctx.reply(res)
+    // console.log("after tracker",res)
+    ctx.reply(res)
 })
 
 async function tracker(kurir,resi) {
@@ -96,7 +96,7 @@ async function tracker(kurir,resi) {
         }
         // console.log("pass before catch")
     } catch(e) {
-        console.log("Error occured",e)
+        console.log("Error occured : ",e)
         val = "Data not found";
     } finally {
         return val
