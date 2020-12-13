@@ -5,23 +5,34 @@ const axios = require('axios');
 const bot = new Composer
 
 bot.help((ctx) => ctx.reply(
-    '/help: show list of available command\n'+
-    '/track: track your package delivery'
+    '/hi : say hi to the bot' +
+    '/help : show list of available command\n'+
+    '/track : track your package delivery\n' +
+    '/ktp : see information of someone by nik (cooming soon)'
     ))
 
+bot.command('hi', (ctx) => {
+    let firstname = ctx.chat.first_name
+    let lastname = ctx.chat.last_name
+
+    ctx.reply("hi "+firstname+" "+lastname)
+})
+
 bot.command('track', (ctx) => {
-    let messageArray = ctx.message.text.split();
+    // console.log(ctx.message)
+    let messageArray = ctx.message.text.trim().split(" ");
     if (messageArray.length == 2) {
         if (messageArray[1]=="list") {
             ctx.reply("kurir list : jne, pos, jnt, sicepat, tiki, anteraja, wahana, ninja\n")
         }
         if (messageArray[1]=="help") {
-            ctx.reply("tracking  : /track [kurir] [no. resi]\n" + 
-                      "list kurir: /track list");
+            ctx.reply("for tracking, try /track [kurir] [no. resi]\n" + 
+                      "to see list of available courier, try /track list");
         }
+        return 0;
     }
     if (messageArray.length != 3) {
-        ctx.reply("for tracking information: /track help");
+        ctx.reply("for tracking information and argument, see /track help");
         return 0;
     }
     
@@ -49,14 +60,11 @@ bot.command('track', (ctx) => {
             
             ctx.reply(info);
         }
-        else if (result.status == 400) {
-            ctx.reply("No. resi tidak ditemukan");
-        }
         else {
-            ctx.reply("Error found, please try again later");
+            ctx.reply(result.message);
         }
     })
 
 })
-
+// bot.launch()
 module.exports = bot
