@@ -42,15 +42,21 @@ bot.command('track', (ctx) => {
     
     let kurir = messageArray[1].toLowerCase();
     let resi = messageArray[2].toUpperCase();
+
+    let res = 'empty';
     tracker(kurir,resi)
     .then((result) => {
         console.log(result);
-        ctx.reply(result);
+        // ctx.reply(result);
+        res = result;
     })
+
+    ctx.reply(res)
 })
 
 async function tracker(kurir,resi) {
     console.log("cekresi api key "+process.env.CEKRESI_API_KEY)
+    let val = '';
     try {
         let url = "https://api.binderbyte.com/v1/track";
     
@@ -68,7 +74,7 @@ async function tracker(kurir,resi) {
             console.log(result.data.data.summary)
             let res = result.data;
             console.log("pass before info")
-            let info = 'No. Resi : ' + res.data.summary.awb +'\n' +
+            val = 'No. Resi : ' + res.data.summary.awb +'\n' +
                        'Kurir : ' + res.data.summary.courier + '\n' +
                        'Layanan : ' + res.data.summary.service + '\n' +
                        'Asal : ' + res.data.detail.origin + '\n' +
@@ -80,18 +86,18 @@ async function tracker(kurir,resi) {
             
             // ctx.reply(info);
             console.log("pass after info")
-            return info;
+            // return info;
         }
         else {
             // res = result.data
             // ctx.reply(res.message);
-            return "Data not found";
+            val = "Data not found";
         }
         console.log("pass before catch")
     } catch(e) {
         console.log("Error occured",e)
     } finally {
-        return "error while trying to connect the api with api key : " + process.env.CEKRESI_API_KEY
+        return val
     }
 }
 // bot.launch()
