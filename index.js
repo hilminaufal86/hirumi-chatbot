@@ -18,7 +18,7 @@ bot.command('hi', (ctx) => {
     ctx.reply("hi "+firstname+" "+lastname)
 })
 
-bot.command('tracking', (ctx) => {
+bot.command('track', (ctx) => {
     // console.log(ctx.message)
     let messageArray = ctx.message.text.trim().split(" ");
     if (messageArray.length == 2) {
