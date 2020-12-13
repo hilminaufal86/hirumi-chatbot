@@ -44,7 +44,7 @@ bot.command('track', (ctx) => {
     let resi = messageArray[2].toUpperCase();
     tracker(kurir,resi)
     .then((result) => {
-        // console.log(result);
+        console.log(result);
         ctx.reply(result);
     })
 })
@@ -65,7 +65,7 @@ async function tracker(kurir,resi) {
         // console.log(result.data)
 
         if (result.status == 200) {
-            console.log(result.data.data.summary)
+            // console.log(result.data.data.summary)
             res = result.data;
             let info = 'No. Resi : ' + res.data.summary.awb +'\n' +
                        'Kurir : ' + res.data.summary.courier + '\n' +
