@@ -92,11 +92,12 @@ async function tracker(kurir,resi) {
         else {
             // res = result.data
             // ctx.reply(res.message);
+            console.log("data not found : ",result);
             val = "Data not found";
         }
         // console.log("pass before catch")
     } catch(e) {
-        console.log("Error occured : ",e.data)
+        // console.log("Error occured : ",e.data)
         val = "Data not found";
     } finally {
         return val
