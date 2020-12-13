@@ -43,20 +43,20 @@ bot.command('track', (ctx) => {
     let kurir = messageArray[1].toLowerCase();
     let resi = messageArray[2].toUpperCase();
 
-    // let res = 'empty';
+    let res = '';
     tracker(kurir,resi)
     .then((result) => {
-        console.log(result);
-        ctx.reply(result);
-        // res = result;
+        // console.log(result);
+        // ctx.reply(result);
+        res = result;
         // console.log("in tracker",res)
     })
     // console.log("after tracker",res)
-    // ctx.reply(res)
+    ctx.reply(res)
 })
 
 async function tracker(kurir,resi) {
-    console.log("cekresi api key "+process.env.CEKRESI_API_KEY)
+    // console.log("cekresi api key "+process.env.CEKRESI_API_KEY)
     let val = '';
     try {
         let url = "https://api.binderbyte.com/v1/track";
@@ -72,7 +72,7 @@ async function tracker(kurir,resi) {
         // console.log(result.data)
 
         if (result.status == 200) {
-            console.log(result.data.data.summary)
+            // console.log(result.data.data.summary)
             let res = result.data;
             // console.log("pass before info")
             val = 'No. Resi : ' + res.data.summary.awb +'\n' +
