@@ -1,7 +1,8 @@
-// const { Telegraf } = require('telegraf')
+const { Telegraf } = require('telegraf')
 const { Composer } = require('micro-bot')
 const axios = require('axios');
 
+// const bot = new Telegraf('1466037800:AAEBslgYakxBUEr3DRsTB3oph0UHPawPPf0')
 const bot = new Composer
 
 bot.help((ctx) => ctx.reply(
@@ -38,38 +39,46 @@ bot.command('track', (ctx) => {
     
     let kurir = messageArray[1].toLowerCase();
     let resi = messageArray[2].toUpperCase();
+    tracker(kurir,resi)
+    .then((result) => {
+        // console.log(result);
+        ctx.reply(result);
+    })
+})
+
+async function tracker(kurir,resi) {
     let url = "https://api.binderbyte.com/v1/track";
 
-    axios.get(url, {
+    let result = await axios.get(url, {
         params: {
+            // api_key : CEKRESI_API_KEY,
             api_key : "a0030456a14b21ddeb89d061697de877f8921eb0b53d7f75b0250cceadc392be",
             courier : kurir,
             awb : resi
         }
     })
-    .then((result) => {
-        if (result.status == 200) {
-            // console.log(result.data.data.summary)
-            res = result.data;
-            let info = 'No. Resi : ' + res.data.summary.awb +'\n' +
-                       'Kurir : ' + res.data.summary.courier + '\n' +
-                       'Layanan : ' + res.data.summary.service + '\n' +
-                       'Asal : ' + res.data.detail.origin + '\n' +
-                       'Tujuan : ' + res.data.detail.destination + '\n' +
-                       'Pengirim : ' + res.data.detail.shipper + '\n' +
-                       'Penerima : ' + res.data.detail.receiver + '\n' +
-                       'Status : ' + res.data.summary.status + '\n' +
-                       'Deskripsi : ' + res.data.history[0].desc;
-            
-            ctx.reply(info);
-        }
-        else {
-            res = result.data
-            ctx.reply(res.message);
-        }
-    })
-    .catch((error) => ctx.reply("Data not found"))
-
-})
+    // console.log(result.data)
+    if (result.status == 200) {
+        // console.log(result.data.data.summary)
+        res = result.data;
+        let info = 'No. Resi : ' + res.data.summary.awb +'\n' +
+                   'Kurir : ' + res.data.summary.courier + '\n' +
+                   'Layanan : ' + res.data.summary.service + '\n' +
+                   'Asal : ' + res.data.detail.origin + '\n' +
+                   'Tujuan : ' + res.data.detail.destination + '\n' +
+                   'Pengirim : ' + res.data.detail.shipper + '\n' +
+                   'Penerima : ' + res.data.detail.receiver + '\n' +
+                   'Status : ' + res.data.summary.status + '\n' +
+                   'Deskripsi : ' + res.data.history[0].desc;
+        
+        // ctx.reply(info);
+        return info;
+    }
+    else {
+        // res = result.data
+        // ctx.reply(res.message);
+        return "Data not found";
+    }
+}
 // bot.launch()
 module.exports = bot
