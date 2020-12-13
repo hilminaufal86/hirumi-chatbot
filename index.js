@@ -16,10 +16,10 @@ bot.command('hi', (ctx) => {
     let firstname = ctx.chat.first_name
     let lastname = ctx.chat.last_name
 
-    console.log("cekresi api key "+process.env.CEKRESI_API_KEY)
+    // console.log("cekresi api key "+process.env.CEKRESI_API_KEY)
 
-    // ctx.reply("hi "+firstname+" "+lastname)
-    ctx.reply(process.env.CEKRESI_API_KEY)
+    ctx.reply("hi "+firstname+" "+lastname)
+    // ctx.reply(process.env.CEKRESI_API_KEY)
 })
 
 bot.command('track', (ctx) => {
@@ -44,13 +44,14 @@ bot.command('track', (ctx) => {
     let resi = messageArray[2].toUpperCase();
 
     let res = 'empty';
-    tracker(kurir,resi)
+    await tracker(kurir,resi)
     .then((result) => {
         console.log(result);
-        // ctx.reply(result);
+        ctx.reply(result);
         res = result;
+        console.log("in tracker",res)
     })
-
+    console.log("after tracker",res)
     ctx.reply(res)
 })
 
