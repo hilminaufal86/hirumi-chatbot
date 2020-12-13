@@ -96,7 +96,7 @@ async function tracker(kurir,resi) {
         }
         // console.log("pass before catch")
     } catch(e) {
-        console.log("Error occured : ",e)
+        console.log("Error occured : ",e.data)
         val = "Data not found";
     } finally {
         return val
