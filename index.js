@@ -47,37 +47,42 @@ bot.command('track', (ctx) => {
 })
 
 async function tracker(kurir,resi) {
-    let url = "https://api.binderbyte.com/v1/track";
-
-    let result = await axios.get(url, {
-        params: {
-            api_key : process.env.CEKRESI_API_KEY,
-            // api_key : "a0030456a14b21ddeb89d061697de877f8921eb0b53d7f75b0250cceadc392be",
-            courier : kurir,
-            awb : resi
+    try {
+        let url = "https://api.binderbyte.com/v1/track";
+    
+        let result = await axios.get(url, {
+            params: {
+                api_key : process.env.CEKRESI_API_KEY,
+                // api_key : "a0030456a14b21ddeb89d061697de877f8921eb0b53d7f75b0250cceadc392be",
+                courier : kurir,
+                awb : resi
+            }
+        })
+        // console.log(result.data)
+        if (result.status == 200) {
+            // console.log(result.data.data.summary)
+            res = result.data;
+            let info = 'No. Resi : ' + res.data.summary.awb +'\n' +
+                       'Kurir : ' + res.data.summary.courier + '\n' +
+                       'Layanan : ' + res.data.summary.service + '\n' +
+                       'Asal : ' + res.data.detail.origin + '\n' +
+                       'Tujuan : ' + res.data.detail.destination + '\n' +
+                       'Pengirim : ' + res.data.detail.shipper + '\n' +
+                       'Penerima : ' + res.data.detail.receiver + '\n' +
+                       'Status : ' + res.data.summary.status + '\n' +
+                       'Deskripsi : ' + res.data.history[0].desc;
+            
+            // ctx.reply(info);
+            return info;
         }
-    })
-    // console.log(result.data)
-    if (result.status == 200) {
-        // console.log(result.data.data.summary)
-        res = result.data;
-        let info = 'No. Resi : ' + res.data.summary.awb +'\n' +
-                   'Kurir : ' + res.data.summary.courier + '\n' +
-                   'Layanan : ' + res.data.summary.service + '\n' +
-                   'Asal : ' + res.data.detail.origin + '\n' +
-                   'Tujuan : ' + res.data.detail.destination + '\n' +
-                   'Pengirim : ' + res.data.detail.shipper + '\n' +
-                   'Penerima : ' + res.data.detail.receiver + '\n' +
-                   'Status : ' + res.data.summary.status + '\n' +
-                   'Deskripsi : ' + res.data.history[0].desc;
-        
-        // ctx.reply(info);
-        return info;
-    }
-    else {
-        // res = result.data
-        // ctx.reply(res.message);
-        return "Data not found";
+        else {
+            // res = result.data
+            // ctx.reply(res.message);
+            return "Data not found";
+        }
+
+    } catch(e) {
+        console.log("Error occured",e)
     }
 }
 // bot.launch()
