@@ -47,6 +47,7 @@ bot.command('track', (ctx) => {
 })
 
 async function tracker(kurir,resi) {
+    console.log("cekresi api key "+process.env.CEKRESI_API_KEY)
     try {
         let url = "https://api.binderbyte.com/v1/track";
     
@@ -58,7 +59,8 @@ async function tracker(kurir,resi) {
                 awb : resi
             }
         })
-        // console.log(result.data)
+        console.log(result.data)
+
         if (result.status == 200) {
             // console.log(result.data.data.summary)
             res = result.data;
@@ -83,6 +85,7 @@ async function tracker(kurir,resi) {
 
     } catch(e) {
         console.log("Error occured",e)
+    } finally {
         return "error while trying to connect the api with api key : " + process.env.CEKRESI_API_KEY
     }
 }
