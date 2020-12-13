@@ -51,8 +51,8 @@ async function tracker(kurir,resi) {
 
     let result = await axios.get(url, {
         params: {
-            // api_key : CEKRESI_API_KEY,
-            api_key : "a0030456a14b21ddeb89d061697de877f8921eb0b53d7f75b0250cceadc392be",
+            api_key : process.env.CEKRESI_API_KEY,
+            // api_key : "a0030456a14b21ddeb89d061697de877f8921eb0b53d7f75b0250cceadc392be",
             courier : kurir,
             awb : resi
         }
