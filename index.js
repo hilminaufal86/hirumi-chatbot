@@ -43,16 +43,16 @@ bot.command('track', (ctx) => {
     let kurir = messageArray[1].toLowerCase();
     let resi = messageArray[2].toUpperCase();
 
-    let res = 'empty';
+    // let res = 'empty';
     tracker(kurir,resi)
     .then((result) => {
         console.log(result);
         ctx.reply(result);
-        res = result;
-        console.log("in tracker",res)
+        // res = result;
+        // console.log("in tracker",res)
     })
-    console.log("after tracker",res)
-    ctx.reply(res)
+    // console.log("after tracker",res)
+    // ctx.reply(res)
 })
 
 async function tracker(kurir,resi) {
@@ -74,7 +74,7 @@ async function tracker(kurir,resi) {
         if (result.status == 200) {
             console.log(result.data.data.summary)
             let res = result.data;
-            console.log("pass before info")
+            // console.log("pass before info")
             val = 'No. Resi : ' + res.data.summary.awb +'\n' +
                        'Kurir : ' + res.data.summary.courier + '\n' +
                        'Layanan : ' + res.data.summary.service + '\n' +
@@ -86,7 +86,7 @@ async function tracker(kurir,resi) {
                        'Deskripsi : ' + res.data.history[0].desc;
             
             // ctx.reply(info);
-            console.log("pass after info")
+            // console.log("pass after info")
             // return info;
         }
         else {
@@ -94,9 +94,10 @@ async function tracker(kurir,resi) {
             // ctx.reply(res.message);
             val = "Data not found";
         }
-        console.log("pass before catch")
+        // console.log("pass before catch")
     } catch(e) {
         console.log("Error occured",e)
+        val = "Error occured";
     } finally {
         return val
     }
