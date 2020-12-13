@@ -1,0 +1,24 @@
+{
+  "name": "hirumi-chatbot",
+  "version": "1.0.0",
+  "description": "private chatbot",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hilminaufal86/hirumi-chatbot.git"
+  },
+  "author": "razen32",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hilminaufal86/hirumi-chatbot/issues"
+  },
+  "homepage": "https://github.com/hilminaufal86/hirumi-chatbot#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "telegraf": "^3.38.0"
+  }
+}
