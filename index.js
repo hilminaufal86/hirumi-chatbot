@@ -5,7 +5,7 @@ const axios = require('axios');
 const bot = new Composer
 
 bot.help((ctx) => ctx.reply(
-    '/hi : say hi to the bot' +
+    '/hi : say hi to hirumi\n' +
     '/help : show list of available command\n'+
     '/track : track your package delivery\n' +
     '/ktp : see information of someone by nik (cooming soon)'
@@ -18,7 +18,7 @@ bot.command('hi', (ctx) => {
     ctx.reply("hi "+firstname+" "+lastname)
 })
 
-bot.command('track', (ctx) => {
+bot.command('tracking', (ctx) => {
     // console.log(ctx.message)
     let messageArray = ctx.message.text.trim().split(" ");
     if (messageArray.length == 2) {
@@ -49,21 +49,26 @@ bot.command('track', (ctx) => {
     })
     .then((result) => {
         if (result.status == 200) {
-            let info = 'No. Resi : ' + result.data.summary.awb +'\n' +
-                       'Kurir    : ' + result.data.summary.corier + '\n' +
-                       'Layanan  : ' + result.data.summary.service + '\n' +
-                       'Asal     : ' + result.data.detail.origin + '\n' +
-                       'Tujuan   : ' + result.data.detail.destination + '\n' +
-                       'Pengirim : ' + result.data.detail.shipper + '\n' +
-                       'Penerima : ' + result.data.detail.receiver + '\n' +
-                       'Status   : ' + result.data.summary.status;
+            // console.log(result.data.data.summary)
+            res = result.data;
+            let info = 'No. Resi : ' + res.data.summary.awb +'\n' +
+                       'Kurir : ' + res.data.summary.courier + '\n' +
+                       'Layanan : ' + res.data.summary.service + '\n' +
+                       'Asal : ' + res.data.detail.origin + '\n' +
+                       'Tujuan : ' + res.data.detail.destination + '\n' +
+                       'Pengirim : ' + res.data.detail.shipper + '\n' +
+                       'Penerima : ' + res.data.detail.receiver + '\n' +
+                       'Status : ' + res.data.summary.status + '\n' +
+                       'Deskripsi : ' + res.data.history[0].desc;
             
             ctx.reply(info);
         }
         else {
-            ctx.reply(result.message);
+            res = result.data
+            ctx.reply(res.message);
         }
     })
+    .catch((error) => ctx.reply("Data not found"))
 
 })
 // bot.launch()
