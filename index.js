@@ -44,7 +44,7 @@ bot.command('track', (ctx) => {
     let resi = messageArray[2].toUpperCase();
 
     let res = 'empty';
-    await tracker(kurir,resi)
+    tracker(kurir,resi)
     .then((result) => {
         console.log(result);
         ctx.reply(result);
