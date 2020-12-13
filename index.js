@@ -46,12 +46,12 @@ bot.command('track', (ctx) => {
     let res = '';
     tracker(kurir,resi)
     .then((result) => {
-        // console.log(result);
-        // ctx.reply(result);
+        console.log(result);
+        ctx.reply(result);
         res = result;
-        // console.log("in tracker",res)
+        console.log("in tracker",res)
     })
-    // console.log("after tracker",res)
+    console.log("after tracker",res)
     ctx.reply(res)
 })
 
