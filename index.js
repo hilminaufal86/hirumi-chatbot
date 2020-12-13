@@ -65,8 +65,9 @@ async function tracker(kurir,resi) {
         // console.log(result.data)
 
         if (result.status == 200) {
-            // console.log(result.data.data.summary)
-            res = result.data;
+            console.log(result.data.data.summary)
+            let res = result.data;
+            console.log("pass before info")
             let info = 'No. Resi : ' + res.data.summary.awb +'\n' +
                        'Kurir : ' + res.data.summary.courier + '\n' +
                        'Layanan : ' + res.data.summary.service + '\n' +
@@ -78,6 +79,7 @@ async function tracker(kurir,resi) {
                        'Deskripsi : ' + res.data.history[0].desc;
             
             // ctx.reply(info);
+            console.log("pass after info")
             return info;
         }
         else {
@@ -85,7 +87,7 @@ async function tracker(kurir,resi) {
             // ctx.reply(res.message);
             return "Data not found";
         }
-
+        console.log("pass before catch")
     } catch(e) {
         console.log("Error occured",e)
     } finally {
